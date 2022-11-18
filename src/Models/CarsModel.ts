@@ -3,6 +3,8 @@ import {
   Schema,
   model,
   models,
+  UpdateQuery,
+  isValidObjectId,
 } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 
@@ -29,5 +31,9 @@ export default class CarODM {
   }
   public async getById(_id : string) : Promise<ICar | any> {
     return this.model.findOne({ _id });
+  }
+  public async updateId(_id: string, car: ICar): Promise<ICar | null > {
+    if (!isValidObjectId(_id)) throw new Error('Invalid mongo id');
+    return this.model.findByIdAndUpdate({ _id }, { ...car } as UpdateQuery<ICar>, { new: true });
   }
 }

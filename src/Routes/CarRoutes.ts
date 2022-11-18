@@ -16,4 +16,8 @@ routes.get(
   '/:id',
   (req, res, next) => new CarController(req, res, next).gelById(),
 );
+routes.put(
+  '/:id',
+  (req, res, next) => new CarController(req, res, next).updateId(),
+);
 export default routes;
