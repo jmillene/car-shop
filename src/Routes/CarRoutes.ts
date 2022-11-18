@@ -4,7 +4,8 @@ import CarController from '../Controllers/CarsControllers';
 
 const routes = Router();
 
-const carController = new CarController();
-routes.post('/', carController.create);
-
+routes.post(
+  '/',
+  (req, res, next) => new CarController(req, res, next).create(),
+);
 export default routes;

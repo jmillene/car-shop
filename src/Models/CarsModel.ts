@@ -11,7 +11,6 @@ export default class CarODM {
   private model: Model<ICar>;
   constructor() {
     this.schema = new Schema<ICar>({
-      id: String,
       model: String,
       year: Number,
       color: String,

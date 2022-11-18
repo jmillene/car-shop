@@ -5,10 +5,10 @@ class Car {
   protected model : string;
   protected year : number;
   protected color : string;
-  protected status : boolean;
+  protected status? : boolean;
   protected buyValue : number;
-  private _doorsQty : number;
-  private _seatsQty : number;
+  private doorsQty : number;
+  private seatsQty : number;
 
   constructor(car: ICar) {
     this.id = car.id;
@@ -17,8 +17,8 @@ class Car {
     this.color = car.color;
     this.status = car.status || false;
     this.buyValue = car.buyValue;
-    this._doorsQty = car.doorsQty;
-    this._seatsQty = car.seatsQty;
+    this.doorsQty = car.doorsQty;
+    this.seatsQty = car.seatsQty;
   }
   public getId() {
     return this.id;
@@ -57,16 +57,16 @@ class Car {
     this.buyValue = buyValue;
   }
   public getDoorsQty() {
-    return this._doorsQty;
+    return this.doorsQty;
   }
   public setDoorsQty(doorsQty: number) {
-    this._doorsQty = doorsQty;
+    this.doorsQty = doorsQty;
   }
   public getSeatsQty() {
-    return this._seatsQty;
+    return this.seatsQty;
   }
   public setSeatsQty(seatsQty : number) {
-    this._seatsQty = seatsQty;
+    this.seatsQty = seatsQty;
   }
 }
 
