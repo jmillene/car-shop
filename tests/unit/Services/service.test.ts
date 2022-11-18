@@ -4,6 +4,9 @@ import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import CarsService from '../../../src/Services/CarsServices';
 import Car from '../../../src/Domains/Car';
+import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
+import Motorcycle from '../../../src/Domains/Motorcycle';
+import MotorcyclesService from '../../../src/Services/MotorcyclesService';
 
 describe('Deveria cadastrar um carro', function () {
   it('Deveria cadastrar um carro com SUCESSO', async function () {
@@ -80,5 +83,21 @@ describe('Deveria cadastrar um carro', function () {
     } catch (error) {
       expect((error as Error).message).to.be.equal('Car not found');
     }
+  });
+  it('Deveria cadastrar um moto com SUCESSO', async function () {
+    const motoInput: IMotorcycle = {
+      model: 'Honda Cb 600f Hornet',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+    const motoOutput: Motorcycle = new Motorcycle(motoInput);
+    sinon.stub(Model, 'create').resolves(motoInput);
+    const service = new MotorcyclesService();
+    const result = await service.create(motoInput);
+    expect(result).to.be.deep.equal(motoOutput);
   });
 });
