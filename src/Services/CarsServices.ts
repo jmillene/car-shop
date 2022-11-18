@@ -21,8 +21,12 @@ export default class CarsService {
     return carArray;
   }
   public async getById(id: string) {
-    const carODM = new CarODM();
-    const cars = await carODM.getById(id);
-    return this.createCarDomain(cars);
+    try {
+      const carODM = new CarODM();
+      const cars = await carODM.getById(id);
+      return this.createCarDomain(cars);  
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
