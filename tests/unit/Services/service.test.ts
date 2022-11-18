@@ -45,5 +45,40 @@ describe('Deveria cadastrar um carro', function () {
       
   afterEach(function () {
     sinon.restore();
-  });  
+  }); 
+  it('Deverá retorna um um objeto com um carro', async function () {
+    const car : ICar = {
+      id: '6377b7ae5bf3457baf621986',
+      model: 'Marea',
+      year: 2002,
+      color: 'Black',
+      status: true,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    };
+    sinon.stub(Model, 'findOne').resolves(car);
+    const service = new CarsService();
+    const cars = await service.getById('6377b7ae5bf3457baf621986');
+    expect(cars).to.be.deep.equal(car);
+  }); 
+  it('Deverá retorna um um informar que o carro não existe', async function () {
+    const car : ICar = {
+      id: '6377b7ae5bf3457baf621986',
+      model: 'Marea',
+      year: 2002,
+      color: 'Black',
+      status: true,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    };
+    try {
+      sinon.stub(Model, 'findOne').resolves(car);
+      const service = new CarsService();
+      await service.getById(car.id as string);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Car not found');
+    }
+  });
 });
