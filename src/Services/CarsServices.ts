@@ -1,4 +1,4 @@
-import Car from '../Domains/CarsDomains';
+import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarsModel';
 
@@ -13,5 +13,16 @@ export default class CarsService {
   public async create(newCar: ICar): Promise<Car> {
     const car = await this.carODM.create(newCar);
     return this.createCarDomain(car);
+  }
+  public async getAllCars() {
+    const carODM = new CarODM();
+    const cars = await carODM.find();
+    const carArray = cars.map((car) => this.createCarDomain(car));
+    return carArray;
+  }
+  public async getById(id: string) {
+    const carODM = new CarODM();
+    const cars = await carODM.getById(id);
+    return this.createCarDomain(cars);
   }
 }
