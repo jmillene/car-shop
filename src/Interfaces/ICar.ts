@@ -1,10 +1,6 @@
-export default interface ICar {
-  id?: string,
-  model : string,
-  year : number,
-  color : string,
-  status? : boolean,
-  buyValue : number,
+import IIter from './IVehicle';
+
+export default interface ICar extends IIter{
   doorsQty : number,
   seatsQty : number,
 }
