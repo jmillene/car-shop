@@ -25,4 +25,10 @@ export default class MotorcycleODM {
   public async create(moto: IMotorcycle): Promise<IMotorcycle> {
     return this.model.create({ ...moto });
   }
+  public async find() : Promise<IMotorcycle[]> {
+    return this.model.find();
+  }
+  public async getById(_id : string) : Promise<IMotorcycle | any> {
+    return this.model.findOne({ _id });
+  }
 }

@@ -14,4 +14,20 @@ export default class MotorcyclesService {
     const car = await this.motorcyclesODM.create(newMoto);
     return this.createCarDomain(car);
   }
+  public async getAllMoto() {
+    const motorcyclesODM = new MotorcyclesODM();
+    const moto = await motorcyclesODM.find();
+    const motoArray = moto.map((mot) => this.createCarDomain(mot));
+    return motoArray;
+  }
+  public async getById(id: string) {
+    try {
+      const motorcyclesODM = new MotorcyclesODM();
+      const moto = await motorcyclesODM.getById(id);
+      
+      return this.createCarDomain(moto);  
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
