@@ -8,6 +8,7 @@ import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
 import Motorcycle from '../../../src/Domains/Motorcycle';
 import MotorcyclesService from '../../../src/Services/MotorcyclesService';
 
+const Honda = 'Honda Cb 600f Hornet';
 describe('Deveria cadastrar um carro', function () {
   it('Deveria cadastrar um carro com SUCESSO', async function () {
     const carInput: ICar = {
@@ -86,8 +87,8 @@ describe('Deveria cadastrar um carro', function () {
   });
   it('Deveria cadastrar um moto com SUCESSO', async function () {
     const motoInput: IMotorcycle = {
-      // eslint-disable-next-line sonarjs/no-duplicate-string
-      model: 'Honda Cb 600f Hornet',
+      
+      model: Honda,
       year: 2005,
       color: 'Yellow',
       status: true,
@@ -104,7 +105,7 @@ describe('Deveria cadastrar um carro', function () {
   it('Deverá retorna um um objeto com um moto', async function () {
     const moto: IMotorcycle = {
       id: '6378e80c7e4d4888de401d88',
-      model: 'Honda Cb 600f Hornet',
+      model: Honda,
       year: 2005,
       color: 'Yellow',
       status: true,
@@ -120,7 +121,7 @@ describe('Deveria cadastrar um carro', function () {
   it('Deverá retorna um um informar que o moto  não existe', async function () {
     const moto: IMotorcycle = {
       id: '6378e80c7e4d4888de401d88',
-      model: 'Honda Cb 600f Hornet',
+      model: Honda,
       year: 2005,
       color: 'Yellow',
       status: true,
@@ -139,7 +140,7 @@ describe('Deveria cadastrar um carro', function () {
   it('Deverá retorna uma mensagem de erro para o id inválido', async function () {
     const moto: IMotorcycle = {
       id: '1',
-      model: 'Honda Cb 600f Hornet',
+      model: Honda,
       year: 2005,
       color: 'Yellow',
       status: true,
