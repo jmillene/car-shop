@@ -30,4 +30,12 @@ export default class MotorcyclesService {
       console.log(error);
     }
   }
+  public async updateId(id: string, moto: IMotorcycle): Promise<Motorcycles | null> {
+    const motoOdm = new MotorcyclesODM();
+    const motos = await motoOdm.updateId(id, moto);
+    if (motos) {
+      return this.createCarDomain(motos);
+    } 
+    return motos;
+  }
 }

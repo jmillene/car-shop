@@ -16,5 +16,9 @@ routes.get(
   '/:id',
   (req, res, next) => new MotorcyclesController(req, res, next).gelById(),
 );
+routes.put(
+  '/:id',
+  (req, res, next) => new MotorcyclesController(req, res, next).updateId(),
+);
 
 export default routes;
