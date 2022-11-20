@@ -10,6 +10,7 @@ import Motorcycle from '../../../src/Domains/Motorcycle';
 import MotorcyclesService from '../../../src/Services/MotorcyclesService';
 
 const Honda = 'Honda Cb 600f Hornet';
+const invalid = 'Invalid mongo id';
 describe('Deveria cadastrar um carro', function () {
   it('Deveria cadastrar um carro com SUCESSO', async function () {
     const carInput: ICar = {
@@ -38,16 +39,14 @@ describe('Deveria cadastrar um carro', function () {
       doorsQty: 4,
       seatsQty: 5,
     };
-
     sinon.stub(Model, 'create').resolves({});
     try {
       const service = new CarsService();
       await service.create(carInput);
     } catch (error) {
-      expect((error as Error).message).to.be.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.equal(invalid);
     }
   });
-
   afterEach(function () {
     sinon.restore();
   });
@@ -88,7 +87,6 @@ describe('Deveria cadastrar um carro', function () {
   });
   it('Deveria cadastrar um moto com SUCESSO', async function () {
     const motoInput: IMotorcycle = {
-      
       model: Honda,
       year: 2005,
       color: 'Yellow',
@@ -154,7 +152,7 @@ describe('Deveria cadastrar um carro', function () {
       const service = new MotorcyclesService();
       await service.create(moto);
     } catch (error) {
-      expect((error as Error).message).to.be.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.equal(invalid);
     }
   });
   it('Deverá retorna uma lista de carros', async function () {
@@ -180,12 +178,9 @@ describe('Deveria cadastrar um carro', function () {
         seatsQty: 5,
       },
     ];
-
     sinon.stub(Model, 'find').resolves(cars);
-
     const service = new CarsService();
     const result = await service.getAllCars();
-
     expect(result).to.be.deep.equal(cars);
   });
   it('Deverá retorna uma lista de motoss', async function () {
@@ -211,12 +206,9 @@ describe('Deveria cadastrar um carro', function () {
         engineCapacity: 600,
       },
     ];
-
     sinon.stub(Model, 'find').resolves(motos);
-
     const service = new MotorcyclesService();
     const result = await service.getAllMoto();
-
     expect(result).to.be.deep.equal(motos);
   });
   it('Deveria lançar uma exceção quando o id é inválido (moto)', async function () {
@@ -230,12 +222,11 @@ describe('Deveria cadastrar um carro', function () {
       engineCapacity: 600,
     };
     sinon.stub(Model, 'update').resolves();
-    
     try {
       const service = new MotorcyclesService();
       await service.updateId('WRONG ID', moto);
     } catch (error) {
-      expect((error as Error).message).to.be.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.equal(invalid);
     }
   });
   it('Deveria lançar uma exceção quando o id é inválido (carro)', async function () {
@@ -249,13 +240,11 @@ describe('Deveria cadastrar um carro', function () {
       seatsQty: 5,
     };
     sinon.stub(Model, 'update').resolves();
-    // eslint-disable-next-line max-lines
-    
     try {
       const service = new CarsService();
       await service.updateId('WRONG ID', moto);
     } catch (error) {
-      expect((error as Error).message).to.be.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.equal(invalid);
     }
   });
 });
