@@ -9,6 +9,7 @@ export default class CarsService {
   }
   private createCarDomain(car: ICar) : Car {
     return new Car(car);
+    // transforma uma chave em um objeto;
   }
   public async create(newCar: ICar): Promise<Car> {
     const car = await this.carODM.create(newCar);
