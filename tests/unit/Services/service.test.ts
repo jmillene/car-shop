@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
@@ -186,5 +187,75 @@ describe('Deveria cadastrar um carro', function () {
     const result = await service.getAllCars();
 
     expect(result).to.be.deep.equal(cars);
+  });
+  it('Deverá retorna uma lista de motoss', async function () {
+    const motos: IMotorcycle[] = [
+      {
+        id: '637a3ced1caa27660e855539',
+        model: 'Honda Cb 600f Hornet',
+        year: 2005,
+        color: 'Yellow',
+        status: true,
+        buyValue: 30,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+      {
+        id: '637a3d0a1caa27660e85553b',
+        model: 'Titan',
+        year: 2022,
+        color: 'Yellow',
+        status: true,
+        buyValue: 40,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+    ];
+
+    sinon.stub(Model, 'find').resolves(motos);
+
+    const service = new MotorcyclesService();
+    const result = await service.getAllMoto();
+
+    expect(result).to.be.deep.equal(motos);
+  });
+  it('Deveria lançar uma exceção quando o id é inválido (moto)', async function () {
+    const moto : IMotorcycle = {
+      model: 'Titan',
+      year: 2022,
+      color: 'Yellow',
+      status: true,
+      buyValue: 40.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+    sinon.stub(Model, 'update').resolves();
+    
+    try {
+      const service = new MotorcyclesService();
+      await service.updateId('WRONG ID', moto);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Invalid mongo id');
+    }
+  });
+  it('Deveria lançar uma exceção quando o id é inválido (carro)', async function () {
+    const moto : ICar = {
+      model: 'Civic',
+      year: 1982,
+      color: 'Red',
+      status: true,
+      buyValue: 16.000,
+      doorsQty: 2,
+      seatsQty: 5,
+    };
+    sinon.stub(Model, 'update').resolves();
+    // eslint-disable-next-line max-lines
+    
+    try {
+      const service = new CarsService();
+      await service.updateId('WRONG ID', moto);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Invalid mongo id');
+    }
   });
 });

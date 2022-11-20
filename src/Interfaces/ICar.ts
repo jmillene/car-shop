@@ -1,6 +1,6 @@
-import IIter from './IVehicle';
+import IVehicle from './IVehicle';
 
-export default interface ICar extends IIter{
+export default interface ICar extends IVehicle{
   doorsQty : number,
   seatsQty : number,
 }
